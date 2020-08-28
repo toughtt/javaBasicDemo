@@ -26,17 +26,17 @@ public class DeadLockDemo {
         ).start();
 
         new Thread(() -> {
-            synchronized (resource1) {
-                System.out.println(Thread.currentThread() + "get resource1");
-                System.out.println("线程2 get resource1:"+System.currentTimeMillis());
+            synchronized (resource2) {
+                System.out.println(Thread.currentThread() + "get resource2");
+                System.out.println("线程2 get resource2:"+System.currentTimeMillis());
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread() + "waiting to get resource2");
-                synchronized (resource2) {
-                    System.out.println(Thread.currentThread() + "get resource2");
+                System.out.println(Thread.currentThread() + "waiting to get resource1");
+                synchronized (resource1) {
+                    System.out.println(Thread.currentThread() + "get resource1");
                 }
             }
         }, "线程 2").start();
